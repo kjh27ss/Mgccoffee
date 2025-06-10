@@ -1,0 +1,136 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    outline: none;
+    font-size: 16px;
+    line-height: 1.5;
+    vertical-align: middle;
+}
+*:before, *:after{
+    box-sizing: border-box;
+    display: inline-block;
+}
+html{
+    overflow-x: hidden;
+    text-align: center;
+}
+body{
+    display: inline-block;
+    width: 100%;
+    max-width: 1920px;
+    font-weight: 300;
+}
+img{
+    max-width: 100%;
+    height: auto;
+    border: 0px;
+}
+ul, ol{
+    list-style-type: none;
+    /* font-size: 0px; */
+}
+ul li, ol li{
+    display: inline-block;
+}
+span, a{
+    display: inline-block;
+    line-height: inherit;
+    color: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    vertical-align: inherit;
+}
+a{
+    text-decoration: none;
+}
+.wrap{
+    width: 1200px;
+    display: inline-block;
+}
+.flex{
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+}
+.grid{
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 0px;
+    width: 100%;
+}
+.pc{
+    display: block !important;
+}
+.mobile{
+    display: none !important;
+}
+
+
+.x1400,
+.x1200,
+.x1000,
+.x800,
+.x600,
+.x400{
+    display: none;
+}
+
+
+
+@media only screen and (max-width:1400px){
+    br .x1400{
+        display: block;
+    }
+}
+@media only screen and (max-width:1200px){
+
+    .wrap{
+        width: 100%;
+        padding: 0px 15px;
+    }
+    .pc{
+        display: none !important;
+    }
+    .mobile{
+        display: block !important;
+    }
+    br .x1200{
+        display: block;
+    }
+
+}
+@media only screen and (max-width:1000px){
+    html{
+        font-size: 15px;
+    }
+    br .x1000{
+        display: block;
+    }
+}
+@media only screen and (max-width:800px){
+    html{
+        font-size: 14px;
+    }
+    br .x800{
+        display: block;
+    }
+}
+@media only screen and (max-width:600px){
+    html{
+        font-size: 13px;
+    }
+    br .x600{
+        display: block;
+    }
+}
+@media only screen and (max-width:400px){
+    html{
+        font-size: 12px;
+    }
+    br .x400{
+        display: block;
+    }
+}

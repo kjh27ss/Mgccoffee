@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>메가MGC커피</title>
+    <link rel="stylesheet" href="lib/setup.css">
+    <script src="lib/jquery.js"></script>
+    <script src="lib/setup.js"></script>
+
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/81d2872b61.js" crossorigin="anonymous"></script>
+    
+    <!-- swiper -->
+    <link  rel="stylesheet"  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+
+    <style>
+        body{
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: 400;
+        }
+        header{
+            width: 100%;
+            position: fixed;
+            z-index: 99;
+            top: 0px;
+            left: 0px;
+            transition: all .3s 0s;
+        }
+        header.view{
+            background-color: white;
+        }
+        header.hover{
+            background-color: #f5f5f5;
+        }
+        header .grid{
+            grid-template-columns: 240px 1fr 240px;
+        }
+        header #logo h1{
+            font-size: 0px;
+            background: url(img/logo.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 100%;
+            width: 200px;
+            height: 80px;
+            transition: all .5s 0s;
+        }
+        header #logo h1:hover{
+            filter: grayscale(1) contrast(0) brightness(0);
+        }
+        header #menu > ul {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-gap: 0px;
+        }
+        header #menu > ul > li:hover{
+            background-color: #fdd000;         
+        }
+        header #menu > ul > li > a{
+            font-size: 18px;
+            line-height: 70px;
+            padding: 10px 0px;
+            position: relative;
+        }
+        header #menu > ul li .list{
+            position: relative;
+            max-height: 0px;
+            overflow: hidden;
+            transition: all .5s 0s;
+        }
+        header #menu > ul:hover li .list{
+            max-height: 500px;
+            padding-bottom: 30px;
+        }
+        header #menu > ul li .list:before{
+            content: "";
+            width: 60px;
+            height: 1px;
+            background: black;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: 0px;
+            transition: all .3s 0s;
+        }
+        header #menu > ul li:hover .list:before{
+            max-width: 60px;
+        }
+        header #menu > ul li .list li{
+            width: 100%;
+            margin-top: 10px;
+        }
+        header #menu > ul li .list li a{
+            white-space: nowrap;
+            font-size: 15px;
+            border-bottom: 1px solid transparent; /* 미리 영역 확보 후 색만 나중에 보이게 */
+        }
+        header #menu > ul li .list li:hover a{
+            border-bottom: 1px solid black;
+        }
+        header #sns li{
+            margin: 20px 4px;
+        }
+        header #sns li a{
+            width: 100%;
+            border: 2px solid black;
+            border-radius: 100%;
+            padding: 5px;
+        }
+        header #sns li:hover a{
+            border-color: #fdd000;
+            background-color: #fdd000;
+        }
+        header #sns li a img{
+            width: 100%;
+        }
+        header #mobile .button{
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            position: relative;
+            top: 50%;
+            left: 40%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            z-index: 9999;
+        }
+        header #mobile .button span{
+            width: 22px;
+            height: 2px;
+            background-color: black;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all .2s 0s;
+        }
+        header #mobile.view .button span{
+            background-color: white;
+        }
+        header #mobile .button span:nth-child(1){
+            transform: translate(-50%,-50%) translateY(-7px);
+        }
+        header #mobile .button span:nth-child(3){
+            transform: translate(-50%,-50%) translateY(7px);
+        }
+        header #mobile.view .button span:nth-child(1){
+            transform: translate(-50%,-50%) rotate(-45deg);
+        }
+        header #mobile.view .button span:nth-child(2){
+            transform: translate(-50%,-50%);
+            opacity: 0;
+        }
+        header #mobile.view .button span:nth-child(3){
+            transform: translate(-50%,-50%) rotate(45deg);
+        }
+        header #mobile .menuBox{
+            border: 1px solid #333;
+            position: fixed;
+            top: 0px;
+            right: 0px;
+            width: 270px;
+            height: 100%;
+            background-color: #222;
+            color: white;
+            z-index: 999;
+            text-align: center;
+            transform: translateX(100%);
+            transition: all .3s 0s;
+        }
+        header #mobile.view .menuBox{
+            transform: translate(0%);
+        }
+        header #mobile .menuBox img{
+            width: 100%;
+            max-width: 230px;
+            margin: 60px 0px 40px;
+        }
+        header #mobile .menuBox .list{
+            text-align: left;
+        }
+        header #mobile .menuBox .list li{
+            width: 100%;
+        }
+        header #mobile .menuBox .list li span{
+            padding: 0px 20px;
+            width: 100%;
+            line-height: 40px;
+            cursor: pointer;
+        }
+        header #mobile .menuBox .list li span:after{
+            content: ">";
+            float: right;
+            transition: all .4s 0s;
+            opacity: .5;
+        }
+        header #mobile .menuBox .list li.view span{
+            color: #fdd000;
+        }
+        header #mobile .menuBox .list li.view span:after{
+            content: ">";
+            transform: rotate(90deg);
+            color: white;
+            opacity: .5;
+        }
+        header #mobile .menuBox .list li .sublist{
+            max-height: 0px;
+            overflow: hidden;
+            transition: all .4s 0s;
+        }
+        header #mobile .menuBox .list li.view .sublist{
+            max-height: 500px;
+        }
+        header #mobile .menuBox .list li .sublist li a{
+            margin: 0px 40px;
+            font-size: 14px;
+            opacity: .5;
+            border-bottom: 1px solid transparent;
+            transition: all .3s 0s;
+        }
+        header #mobile .menuBox .list li .sublist li a:hover{
+            opacity:1;
+            border-bottom: 1px solid white;
+        }
+
+        main section{
+            padding: 60px 0px 100px;
+        }
+        main section .wrap{
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all .8s 0s;
+        }
+        main section.view .wrap{
+            opacity: 1;
+            transform: translateY(0px);
+        }
+        main section .grid li > .title{
+            text-align: left;
+            padding: 0px 30px;
+        }
+        main section .grid li > .title .subname{
+            font-size: 1.5rem;
+            font-weight: 100;
+            transition: all .3s 0s;
+        }
+        main section .grid li > .title .name{   
+            font-size: 3rem;
+            line-height: 1;
+            font-weight: bold;
+            letter-spacing: -3px;
+            padding: 20px 0px 30px;
+            transition: all .3s 0s;
+        }
+        main section .grid li > .title .name span{
+            position: relative;
+            padding: 0px 10px;
+        }
+        main section .grid li > .title .name span:before{
+            content: "";
+            width: 100%;
+            height: 35px;
+            bottom: -10%;
+            left: 0%;
+            background-color: #fdd000;
+            position: absolute;
+            z-index: -1;
+        }
+        main section .grid li > .title .sub{
+            font-size: 1.3rem;
+            padding: 20px 0px 30px;
+            transition: all .3s 0s;
+        }
+        main section .grid li > .title .button{
+            line-height: 50px;
+            padding: 0px 30px;
+            background-color: #fdd000;
+            font-weight: 500;
+            margin: 20px 0px;
+            transition:all .8s 0s;
+        }
+        main #page01{
+            padding: 0px;
+        }
+        main #page01 .swiper .swiper-slide{
+            width: 100%;
+            height: 100vh;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        main #page01 .swiper .swiper-slide.p1{
+            background-image: url(img/index_page01_img01.jpg);
+        }
+        main #page01 .swiper .swiper-slide.p2{
+            background-image: url(img/index_page01_img02.jpg);
+        }
+        main #page01 .swiper .swiper-slide.p3{
+            background-image: url(img/index_page01_img03.jpg);
+        }
+        main #page01 .swiper .swiper-slide.p4{
+            background-image: url(img/index_page01_img04.jpg);
+        }
+        main #page01 .swiper .swiper-slide.p5{
+            background-image: url(img/index_page01_img05.jpg);
+        }
+        main #page01 .swiper .swiper-pagination{
+            /* border: 1px solid #333; */
+            transform: translateY(-70%);
+            position: relative;
+            line-height: 50px;
+        }
+        main #page01 .swiper .swiper-pagination .swiper-pagination-bullet{
+            border-radius: 20px;
+        }
+        main #page01 .swiper .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active{
+            opacity: 1;
+            background: white;
+            width: 40px;
+            height: 8px;
+        }
+        main #page01 .scrolldown{
+            position:relative;
+            top: -160px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9;
+            animation: floatUpDown 1.5s ease-in-out infinite;
+        }
+        main #page01 .scrolldown > span {
+            display: inline-block;
+            width: 23px;
+            height: 40px;
+            border: 2px solid #ffffff;
+            border-radius: 23px;
+            margin-bottom: 5px;
+        }
+        main #page01 .scrolldown > span:after{
+            content: "";
+            display: block;
+            position: relative;
+            width: 2px;
+            height: 6px;
+            margin: 5px auto;
+            background: #ffffff;
+            animation: scroll-down-line 1.2s ease-in-out infinite;
+        }
+        @keyframes floatUpDown{
+            0%{
+                transform: translate(-50%, 0);
+                opacity: 1;
+            }
+            50%{
+                transform: translate(-50%, -10%);
+                opacity: .5;
+            }
+            100%{
+                transform: translate(-50%, 0);
+                opacity: 1;
+            }
+        }
+        @keyframes scroll-down-line{
+            0%{
+                opacity:1;
+                top:2px;
+            }
+            30%{
+                opacity: 1;
+            }
+            100%{
+                top: 20px;
+                opacity: 0;
+            }
+        }
+        main #page01 .scrolldown .sub-text{
+            color: #ffffff;
+        }
+        main #page01 .swiper .swiper-pagination .swiper-pagination-bullet{
+            width: 20px;
+            height: 8px;
+            background-color: white;
+            opacity: .5;
+            border-radius: 20px;
+        }
+        main #page02 .grid{
+            grid-template-columns: 1fr 500px;
+        }
+        main #page02 .grid li{
+            width: 100%;
+            overflow: hidden;
+        }
+        main #page02 .grid li .swiper .swiper-button-next,
+        main #page02 .grid li .swiper .swiper-button-prev{
+            color: #000;
+            opacity: .2;
+        }
+        main #page02 .grid li .swiper .swiper-button-next:hover,
+        main #page02 .grid li .swiper .swiper-button-prev:hover{
+            opacity: 8;
+        }
+        main #page02 .grid li .swiper .swiper-slide .img{
+            border-radius: 10px;
+            border: 1px solid #eee;
+            overflow: hidden;
+            max-width: 500px;
+        }
+        main #page02 .grid li .swiper .swiper-slide .img img{
+            width: 100%;
+        }
+           
+        main #page02 .grid li .swiper .swiper-slide .img .title{
+            padding: 20px;
+            background-color: #eee;
+            overflow: hidden;
+            height: 150px;
+            text-align: left;
+        }
+        main #page02 .grid li .swiper .swiper-slide .title .name{
+            font-size: 1.3rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        main #page02 .grid li .swiper .swiper-slide .title .sub{
+            font-size: 13px;
+            padding: 5px 0px 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            color: #888;
+            display: inline-block;
+            text-overflow: ellipsis;
+        }
+        main #page02 .grid li .swiper .swiper-slide .title .text{
+            font-size: 14px;
+            color: #888;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            word-wrap: break-word;
+        } 
+        main #page03{
+            background-color: #fdd000;
+        }
+        main #page03 .grid{
+            grid-template-columns: 1fr 500px;
+            padding: 60px 0px;
+        }
+        main #page03 .grid li .name{
+            padding: 20px 0px 0px;
+        }
+        main #page03 .grid li .name span{
+            background-color: white;
+            vertical-align: middle;
+        }
+        main #page03 .grid li .name span:before{
+            display: none;
+        }
+        main #page03 .grid li .pay{
+            font-weight: 600;
+        }
+        main #page03 .grid li .pay span{
+            font-size: 2rem;
+            font-weight: bold;
+            vertical-align: baseline;
+        }
+        main #page03 .grid li .sub{
+            font-weight: 400;
+            padding: 20px 0px 20px;
+        }
+        main #page03 .grid li .text{
+            font-weight: 100;
+            margin-bottom: 30px;
+        }
+        main #page03 .grid li .video .button{
+            background-color: #1c1c1b;
+            color: white;
+            line-height: 60px;
+            width: 100%;
+            transition: all .3s 0s;
+        }
+        main #page03 .grid li .video .button:hover{
+            background-color: #703614;
+            transform: translateY(-5px);
+        }
+        main #page04{
+            padding: 0px;
+            position: relative;
+        }
+        main #page04 .bg{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 0px;
+        }
+        main #page04 .bg .left{
+            background-color: #f5f5f5;
+            height: 90vh;
+        }
+        main #page04 .bg .right{
+            background-image: url(img/index_page04_img.jpg);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            height: 90vh;
+        }
+        main #page04 .grid .left .box{
+            padding-left: 12vw;
+            padding-top: 30px;
+            text-align: left;
+        }
+        main #page04 .title{
+            position: absolute;
+            top: 50%;
+            left: 0%;
+            width: 100%;
+            transform: translateY(-50%);
+        }
+        main #page04 .title .wrap{
+            text-align: left;
+        }
+        main #page04 .title .wrap .subname{
+            font-size: 1.5rem;
+            font-weight: 100;
+            transition: all .3s 0s;
+        }
+        main #page04 .title .wrap .name{
+            font-size: 3rem;
+            line-height: 1;
+            font-weight: bold;
+            letter-spacing: -3px;
+            transition: all .3s 0s;
+        }
+        main #page04 .title .wrap .name span{
+            position: relative;
+            padding: 0px 10px;
+            transition: all .3s 0s;
+        }
+        main #page04 .title .wrap .name span:before{
+            content: "";
+            width: 100%;
+            height: 35px;
+            bottom: -10%;
+            left: 0%;
+            background: #fdd000;
+            position: absolute;
+            z-index: -1;
+        }
+        main #page04 .title .wrap > .sub{
+            font-size: 1.3rem;
+            padding: 20px 0px 10px;
+            transition: all .3s 0s;
+        }
+        main #page04 .title .wrap .text{
+            font-weight: 300;
+        }
+        main #page04 .title .wrap .button{
+            line-height: 50px;
+            width: 140px;
+            text-align: center;
+            background-color: #fdd000;
+            font-weight: 500;
+            margin: 20px 0px;
+            transition: all .3s 0s;
+            margin-right: 15px;
+        }
+        main #page04 .title .wrap .button:hover{
+            background-color: #ffdf43;
+            transform: translateY(-5px);
+        }
+        main #page05 .wrap > .title .subname{
+            font-size: 1.5rem;
+            font-weight: 100;
+            transition: all .3s 0s;
+        }
+        main #page05 .wrap > .title .name{
+            line-height: 1;
+            font-size: 3rem;
+            font-weight: bold;
+            letter-spacing: -3px;
+            transition: all .3s 0s;
+        }
+        main #page05 .wrap > .title .name span{
+            position: relative;
+            padding: 0px 10px;
+            transition: all .3s 0s;
+        }
+        main #page05 .wrap > .title .name span:before{
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 35px;
+            background-color: #fdd000;
+            z-index: -1;
+            bottom: -10%;
+            left: 0%;
+        }
+        main #page05 .list{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-gap: 15px;
+            padding: 0px 20px;
+        }
+        main #page05 .list li{
+            margin-top: 30px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        main #page05 .list li a .img img{
+            width: 100%;
+            transition: all .3s 0s;
+        }
+        main #page05 .list li a .img img:hover{
+            transform: scale(1.1);
+        }
+        main #page05 .list li a .title{
+            position: relative;
+            height: 150px;
+            padding: 25px;
+            text-overflow: ellipsis;
+            white-space: normal;
+            word-wrap: break-word;
+        }
+        main #page05 .list li a .title .name{
+            color: #444;
+            left: 0;
+            position: absolute;
+            padding-left: 20px;
+        }
+        main #page05 .list li a .title .date{
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            padding: 0px 20px 20px;
+            color: #666;
+        }
+        main #page05 .text{
+            font-size: 14px;
+            padding-top: 30px;
+            color: #666;
+        }
+        main #page05 .button{
+            display: inline-block;
+            line-height: 50px;
+            width: 140px;
+            text-align: center;
+            background-color: #fdd000;
+            margin: 20px 0px;
+            font-weight: 500;
+            transition: all .3s 0s;
+            cursor: pointer;
+        }
+        main #page05 .button:hover{
+            background-color: #ffdf43;
+            transform: translateY(-5px);
+        }
+        main .scroll{
+            display: block;
+            position: fixed;
+            width: 130px;
+            bottom: 30px;
+            left: 25px;
+            z-index: 99;
+        }
+        main .scroll .menu{
+            text-align: left;
+        }
+        main .scroll .menu li{
+            display: block;
+            width: 120px;
+            color: #2225;
+            font-weight: bold;
+        }
+        main .scroll .menu li.view{
+            font-size: 16px;
+            color: #222;
+        }
+        main .scroll .menu li a{
+            line-height: 35px;
+        }
+        main .scroll .menu li a span{
+            width: 0px;
+            height: 2px;
+            background-color: #212121;
+            transform: translateY(-50%);
+            transition: all .3s 0s;
+        }
+        main .scroll .menu li.view a span{
+            display: inline-block;
+            width: 10px;
+        }
+        footer .top{
+            background-color: #fdd000;
+        }
+        footer .top .wrap .list{
+            text-align: left;
+            padding: 0px 10px;
+        }
+        footer .top .wrap .list li{
+            padding-left: 10px;
+            line-height: 50px;
+        }
+        footer .top .wrap .list li a{
+            font-size: 13px;
+            font-weight: bold;
+        }
+        footer .top .wrap .list li a:hover{
+            text-decoration: underline;
+        }
+        footer .footer{
+            padding: 40px 0px 80px;
+            border: 1px solid #b29f9f;
+            background-color: #212121;
+            color: #aaa;
+        }
+        footer .footer .left{
+            text-align: left;
+        }
+        footer .footer .left .img img{
+            max-width: 180px;
+            margin-right: 10px;
+        }
+        footer .footer .left .sns{
+            display: inline-block;
+        }
+        footer .footer .left .sns li{
+            margin: 0px 3px;
+        }
+        footer .footer .left .sns li a{
+            width: 35px;
+            background-color: white;
+            border: 2px solid white;
+            border-radius: 100%;
+            padding: 3px;
+        }
+        footer .footer .left .sns li a:hover{
+            border-color: #fdd000;
+            background-color: #fdd000;
+        }
+        footer .footer .left .sns li a img{
+            width: 100%;
+        }
+        footer .footer .left .text{
+            line-height: 30px;
+            letter-spacing: -1px;
+            margin-top: 30px;
+            font-size: 14px;
+            transition: all .3s 0s;
+        }
+        footer .footer .left .text > span {
+            color: white;
+            vertical-align: baseline;
+            font-weight: bold;
+        }
+        footer .footer .right .list{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-gap: 0px;
+        }
+        footer .footer .right .list > li{
+            width: 100%;
+            text-align: left;
+        }
+        footer .footer .right .list > li > a{
+            width: 100%;
+        }
+        footer .footer .right .list > li span{
+            color: white;
+            line-height: 35px;
+        }
+        footer .footer .right .list li .sublist{
+            text-align: left;
+            line-height: 30px;
+        }
+        footer .footer .right .list li .sublist li a{
+            width: 100%;
+            font-size: 16px;
+        }
+        footer .footer .right .list li .sublist li:hover a{
+            text-decoration: underline;
+            color: white;
+        }
+        /* @media */
+        @media only screen and (max-width:1200px){
+            header .grid{
+                grid-template-columns: 240px 1fr 100px;
+            }
+            header #sns{
+                text-align: right;
+            }
+            main .scroll{
+                /* transform: translateX(-150%); */
+            }
+            main #page03 .wrap .title .sub br:nth-child(1),
+            main #page03 .wrap .title .text br:nth-child(1)
+            {
+                display: none;
+            }
+            main #page04 .title .wrap .name{
+                /* font-size: 3rem; */
+            }
+            footer .footer .grid{
+                display: flex;
+                flex-direction: column;
+            }
+            footer .top .wrap .list{
+                text-align: center;
+            }
+            footer .footer .grid .left{
+                text-align: center;
+            }
+            footer .footer .grid .left .text{
+                font-size: 12px;
+            }
+
+            @media only screen and (max-width:1000px){
+                main #page02 .grid{
+                    grid-template-columns: 1fr;
+                }
+                main #page02 .grid li .swiper .swiper-slide .img .title{
+                    background-color: white;
+                    font-size: 1rem;
+                }
+                main #page02 .grid li .swiper .swiper-button-next,
+                main #page02 .grid li .swiper .swiper-button-prev{
+                    opacity: 0;
+                }
+
+                main #page03 .grid{
+                    grid-template-columns: 1fr 370px;
+                }
+            }
+
+            @media only screen and (max-width:800px){
+                header .grid{
+                    grid-template-columns: 240px 1fr;
+                }
+                header #sns{
+                    display: none;
+                }
+                header #mobile{
+                    display: right;
+                }
+                main #page01 .swiper .swiper-slide.p1{
+                    /*  */
+                }
+                main #page03 .grid{
+                    grid-template-columns: 1fr;
+                }
+                main #page03 .grid li .video{
+                    max-width: 650px;
+                    display: inline-block;
+                    width: 100%;
+                }
+                main #page03 .grid li .name br:nth-child(2){
+                    display: none;
+                }
+                main #page03 .grid li .title .text{
+                    font-size: 1rem;
+                }
+                main #page04 .bg{
+                    grid-template-columns: 1fr;
+                }
+                main #page04 .bg .left,
+                main #page04 .bg .right{
+                    height: 45vh;
+                }
+                main #page04 .title{
+                    height: 100%;
+                    background-color: #fff9;
+                    padding: 20px;
+                }
+                main #page04 .title .wrap .sub br,
+                main #page04 .title .wrap .sub .text
+                {
+                    display: none;
+                }
+                main #page05 .list{
+                    grid-template-columns: 1fr;
+                    grid-gap: 0px;
+                    padding: 0px;
+                }
+                main #page05 .list a{
+                    display: flex;
+                    flex-direction: row;
+                }
+                main #page05 .list a .img{
+                    width: 150px;
+                    
+                }
+                main #page05 .list li a .title .name{
+                    position: static;
+                    padding-left: 0;
+                }
+
+                @media only screen and (max-width:600px){
+                    main #page02 .grid li > .title .name span{
+                        /* padding: 0px; */
+                    }
+                    footer .foote .left .text{
+                        font-size: 11px;
+                    }
+                }
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="wrap">
+            <div class="grid">
+                <a href="#" id="logo">
+                    <h1>메가MGC커피</h1>
+                </a>
+                <nav id="menu" class="pc">
+                    <ul>
+                        <li>
+                            <a href="#">메가스토리</a>
+                            <ul class="list">
+                                <li><a href="#">브랜드</a></li>
+                                <li><a href="#">BI</a></li>
+                                <li><a href="#">오시는 길</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">메뉴소개</a>
+                            <ul class="list">
+                                <li><a href="#">음료</a></li>
+                                <li><a href="#">푸드</a></li>
+                                <li><a href="#">상품</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">매장</a>
+                            <ul class="list">
+                                <li><a href="#">매장찾기</a></li>                            
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">창업 안내</a>
+                            <ul class="list">
+                                <li><a href="#">개설비용</a></li>
+                                <li><a href="#">인테리어</a></li>
+                                <li><a href="#">창업문의</a></li>
+                                <li><a href="#">가맹점 인수</a></li>
+                                <li><a href="#">창업뉴스</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">메가 소식</a>
+                            <ul class="list">
+                                <li><a href="#">공지사항</a></li>
+                                <li><a href="#">이벤트</a></li>
+                                <li><a href="#">FAQ</a></li>
+                                <li><a href="#">고객의 소리</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">채용</a>
+                            <ul class="list">
+                                <li><a href="#">채용안내</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+
+                <ul id="sns">
+                    <li><a href="#"><img src="img/sns_blog.png" alt=""></a></li>
+                    <li><a href="#"><img src="img/sns_facebook.png" alt=""></a></li>
+                    <li><a href="#"><img src="img/sns_instagram.png" alt=""></a></li>
+                    <li><a href="#"><img src="img/sns_smartstore.png" alt=""></a></li>
+                </ul>
+
+                <!-- mobile -->
+                 <div id="mobile" class="mobile">
+                    <div class="button">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="menuBox">
+                        <img src="img/mobile_logo.png" alt="">
+
+                        <ul class="list">
+                            <li>
+                                <span>메가 스토리</span>
+                                <ul class="sublist">
+                                    <li><a href="#">브랜드</a></li>
+                                    <li><a href="#">BI</a></li>
+                                    <li><a href="#">오시는 길</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span>메뉴소개</span>
+                                <ul class="sublist">
+                                    <li><a href="#">음료</a></li>
+                                    <li><a href="#">푸드</a></li>
+                                    <li><a href="#">상품</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span>매장</span>
+                                <ul class="sublist">
+                                    <li><a href="#">브랜드</a></li>
+                                    <li><a href="#">브랜드</a></li>
+                                    <li><a href="#">브랜드</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span>창업 안내</span>
+                                <ul class="sublist">
+                                    <li><a href="#">개설비용</a></li>
+                                    <li><a href="#">인테리어</a></li>
+                                    <li><a href="#">창업문의</a></li>
+                                    <li><a href="#">가맹점 인수</a></li>
+                                    <li><a href="#">창업뉴스</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span>메가 소식</span>
+                                <ul class="sublist">
+                                    <li><a href="#">공지사항</a></li>
+                                    <li><a href="#">이벤트</a></li>
+                                    <li><a href="#">FAQ</a></li>
+                                    <li><a href="#">고객의 소리</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <span>채용</span>
+                                <ul class="sublist">
+                                    <li><a href="#">채용안내</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section id="page01" class="section">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide p1"></div>
+                    <div class="swiper-slide p2"></div>
+                    <div class="swiper-slide p3"></div>
+                    <div class="swiper-slide p4"></div>
+                    <div class="swiper-slide p5"></div>
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="scrolldown">
+                    <span></span>
+                    <div class="sub-text">
+                        스크롤을 내리세요!
+                    </div>
+                </div>
+            </div>
+        </section>
+<!-- ************************************************************************************ -->
+        <section id="page02" class="section">
+            <div class="wrap">
+                <ul class="grid">
+                    <li>
+                        <div class="title">
+                            <div class="subname">메가MGC커피 여름시즌 신메뉴</div>
+                            <div class="name scroll-item">청량하게 빛나는<br>
+                                <span>우리들의 여름 정거장</span>
+                            </div>
+                            <div class="sub scroll-item">WISHFUL JOYFUL SUMMER</div>
+                            <div class="text scroll-item">여름에 빠질 수 없는 제철 과일 음료들부터<br>
+                                POP POP 터지는 시원함으로 가득 채운 다양한 디저트까지<br>
+                                언제 어디서나 메가MGC커피로 시원한 여름나기!
+                            </div>
+                            <a href="#" class="button scroll-item">메뉴 더보기</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="swiper">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide">
+                                    <div class="img">
+                                        <img src="/img/index_page02_img01.jpg" alt="">
+                                        <div class="title">
+                                            <div class="name">꿀수박주스</div>
+                                            <div class="sub">Sweet Watermelon Juice</div>
+                                            <div class="text">100% 수박 착즙원액에 잘익은 꿀수박을 갈아넣어 리얼한
+                                                수박맛을 즐길 수 있는 메가MGC커피 여름시즌 대표메뉴
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="img">
+                                        <img src="/img/index_page02_img02.jpg" alt="">
+                                        <div class="title">
+                                            <div class="name">꿀수박 화채스무디</div>
+                                            <div class="sub">Watermelon Punch Smoothie</div>
+                                            <div class="text">잘익은 꿀수박을 넣은 시원 달달한 수박스무디에 다채로운 과일과 
+                                                탱글한 젤리펄을 넣은 여름시즌 한정 화채 스무																					
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="img">
+                                        <img src="/img/index_page02_img03.jpg" alt="">
+                                        <div class="title">
+                                            <div class="name">꿀복숭아 스무디</div>
+                                            <div class="sub">Peach Smoothie</div>
+                                            <div class="text">제철 말랑이 꿀복숭아를 가득넣어 씹히는 맛이 일품인 여름시즌 한정 스무디</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="img">
+                                        <img src="/img/index_page02_img04.jpg" alt="">
+                                        <div class="title">
+                                            <div class="name">저당 POP POP 매실 아이스티</div>
+                                            <div class="sub">Low Sugar Green Plum Iced Tea</div>
+                                            <div class="text">저당 매실 아이스티에 POP한 빅구슬아이스크림을 넣어 
+                                                머리가 쨍~ 할 정도로 시원한 살얼음 가득 여름시즌 한정 아이스티
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="img">
+                                        <img src="/img/index_page02_img05.jpg" alt="">
+                                        <div class="title">
+                                            <div class="name">콜드브루 아샷추 크러쉬</div>
+                                            <div class="sub">Peach Cold Brew Crush</div>
+                                            <div class="text">살얼음 가득한 크러쉬 타입의 복숭아 아이스티에 
+                                                콜드브루 샷을 추가하여 달콤 쌉싸름한 여름시즌 한정 콜드브루 아샷추 크러쉬
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="img">
+                                        <img src="/img/index_page02_img06.jpg" alt="">
+                                        <div class="title">
+                                            <div class="name">팥빙 젤라또 파르페</div>
+                                            <div class="sub">Red Bean Bingsu Parfait</div>
+                                            <div class="text">쫀득한 팥 젤라또와 팥, 떡, 믹스시리얼이 어우러진 우유빙수 스타일의 여름시즌 한정 파르페</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="swiper-slide">
+                                    <div class="img">
+                                        <img src="/img/index_page02_img07.jpg" alt="">
+                                        <div class="title">
+                                            <div class="name">망빙 파르페</div>
+                                            <div class="sub">Mango Bingsu Parfait</div>
+                                            <div class="text">달콤한 망고와 코코넛칩, 휘핑크림, 믹스시리얼이 어우러진 망고요거트 스타일의 여름시즌 한정 파르페</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section id="page03" class="section">
+            <div class="wrap">
+                <ul class="grid">
+                    <li>
+                        <div class="title">
+                            <div class="subname">거품 없는 창업비용</div>
+                            <div class="name">
+                                FRANCHISE<br>
+                                MEGA MGC<br>
+                                <span>COFFEE</span>
+                            </div>
+                             <div class="pay">
+                                <span>6,935</span>만원 (10평 기준)
+                             </div>
+                             <div class="sub">
+                                지금, 메가MGC커피에서 <br>
+                                창업성공 스토리를<br class="x1000"> 경험해보세요.
+                             </div>
+                             <div class="text">
+                                합리적인 창업비용과 다양한 경험을 바탕으로, <br>
+                                다양한 노하우를 전수하여 창업 성공을 약속드립니다.
+                             </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="video">
+                            <iframe width="100%" height="315" src="https://www.youtube.com/embed/Ppe5NIRco8A?autoplay=0&playsinline=1&loop=1&rel=0&mute=1&modestbranding=1&autohide=1&showinfo=0&controls=0&enablejsapi=1&origin=https%3A%2F%2Fwww.mega-mgccoffee.com&widgetid=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"allowfullscreen></iframe> 
+                            <a href="#" class="button">창업문의 바로가기</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+         <section id="page04" class="section">
+            <div class="title">
+                <div class="wrap">
+                    <div class="subname">메가MGC커피 이야기</div>
+                    <div class="name scroll-item">
+                        MEGA SIZE <br>
+                        <span>& 2 SHOT</span>
+                    </div>
+                    <div class="sub scroll-item">100% 프리미엄 아라비카 원두를 로스팅하여,<br>
+                        깊고 부드러운 커피와 빅 사이즈로 구성된<br>
+                        다양한 음료를 합리적인 가격으로 제공합니다.
+                    </div>
+                    <div class="text scroll-item">
+                        좋은 품질의 재료를, 합리적인 가격으로 제공하여<br> 
+                        좋은 품질의 음료를 저렴한 가격으로 만나보실 수 있습니다.
+                    </div>
+                    <div class="scroll-item">
+                        <a href="#" class="button">브랜드소개</a>
+                        <a href="#" class="button">창업문의</a>
+                    </div>
+                </div>
+            </div>
+            <div class="bg">
+                <div class="left"></div>
+                <div class="right"></div>
+            </div>
+         </section>
+         <section id="page05" class="section">
+            <div class="wrap">
+                <div class="title">
+                    <div class="subname">메가MGC커피 소식</div>
+                    <div class="name scroll-item"><span>MEGA EVENT</span></div>
+                </div>
+                <ul class="list">
+                    <li>
+                        <a href="#">
+                            <div class="img">
+                                <img src="img/index_page05_img01.jpg" alt="">
+                            </div>
+                            <div class="title">
+                                <div class="name">[이벤트] 6월 메가MGC커피 X <span class="x1200"> 
+                                    KB페이 적립 EVENT
+                                </div>
+                                <div class="date">20xx.xx.xx</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="img">
+                                <img src="img/index_page05_img02.jpg" alt="">
+                            </div>
+                            <div class="title">
+                                <div class="name">[이벤트] 6월 메가MGC커피 X <span class="x1200">
+                                    신한 SOL페이 적립 EVENT
+                                </div>
+                                <div class="date">20xx.xx.xx</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="img">
+                                <img src="img/index_page05_img03.jpg" alt="">
+                            </div>
+                            <div class="title">
+                                <div class="name">SMGC 캠페인! RIIZE <span class="x1200">
+                                    ODYSSEY MEGA SMini 사전예약
+                                </div>
+                                <div class="date">20xx.xx.xx</div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="text">전체 매장 및 각 매장에서 다양한 이벤트가 진행중 입니다.</div>
+                <div class="button">이벤트 더보기</div>
+            </div>
+         </section>
+         <div class="scroll">
+            <ul class="menu">
+                <li class="view">
+                    <a href="#page01">
+                        <span></span>
+                        MAIN
+                    </a>
+                </li>
+                <li>
+                    <a href="#page02">
+                        <span></span>
+                        MENU
+                    </a>
+                </li>
+                <li>
+                    <a href="#page03">
+                        <span></span>
+                        FRANCHISE
+                    </a>
+                </li>
+                <li>
+                    <a href="#page04">
+                        <span></span>
+                        MEGA
+                    </a>
+                </li>
+                <li>
+                    <a href="#page05">
+                        <span></span>
+                        EVENT
+                    </a>
+                </li>                
+            </ul>
+         </div>
+    </main>
+    <footer>
+            <div class="top">
+                <div class="wrap">
+                    <ul class="list">
+                        <li><a href="#">이용약관</a></li>
+                        <li><a href="#">개인정보취급방침</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="wrap">
+                    <div class="grid">
+                        <div class="left">
+                            <div class="img">
+                                <img src="img/footer_logo.png" alt="">
+
+                                <ul class="sns">
+                                    <li><a href="#"><img src="img/sns_blog.png" alt=""></a></li>
+                                    <li><a href="#"><img src="img/sns_facebook.png" alt=""></a></li>
+                                    <li><a href="#"><img src="img/sns_instagram.png" alt=""></a></li>
+                                    <li><a href="#"><img src="img/sns_smartstore.png" alt=""></a></li>
+                                </ul>
+                            </div>
+                            <div class="text">
+                                <span>주식회사 앤하우스 &nbsp;</span>
+                                대표자 김대영 &nbsp;
+                                창업상담 1588-0656 &nbsp; 고객센터 1588-8298 &nbsp; FAX 02-325-5199 <br>
+                                사업자등록번호 105-87-51367 &nbsp; 서울특별시 강남구 강남대로 518 11층, 13층 (주)앤하우스 <br>
+                                개인정보보호 관리책임자 이종원
+                            </div>
+                        </div>
+                        <div class="right pc">
+                            <ul class="list">
+                                <li>
+                                    <span>메가스토리</span>
+                                    <ul class="sublist">
+                                        <li><a href="#">브랜드</a></li>
+                                        <li><a href="#">BI</a></li>                                       
+                                        <li><a href="#">오시는 길</a></li>
+                                    </ul>                                            
+                                </li>
+                                <li>
+                                    <span>메뉴소개</span>
+                                    <ul class="sublist">
+                                        <li><a href="#">음료</a></li>
+                                        <li><a href="#">푸드</a></li>                                       
+                                        <li><a href="#">상품</a></li>
+                                    </ul>                                            
+                                </li>
+                                <li>
+                                    <span>매장</span>
+                                    <ul class="sublist">
+                                        <li><a href="#">매장찾기</a></li>                   
+                                    </ul>                                            
+                                </li>
+                                <li>
+                                    <span>창업안내</span>
+                                    <ul class="sublist">
+                                        <li><a href="#">개설비용</a></li>
+                                        <li><a href="#">인테리어</a></li>                                       
+                                        <li><a href="#">창업문의</a></li>
+                                        <li><a href="#">창업뉴스</a></li>
+                                    </ul>                                            
+                                </li>
+                                <li>
+                                    <span>메가소식</span>
+                                    <ul class="sublist">
+                                        <li><a href="#">공지사항</a></li>
+                                        <li><a href="#">이벤트</a></li>                                       
+                                        <li><a href="#">FAQ</a></li>
+                                        <li><a href="#">고객의 소리</a></li>
+                                    </ul>                                            
+                                </li>
+                                <li>
+                                    <span>제휴문의</span>
+                                    <ul class="sublist">
+                                        <li><a href="#">상품제안</a></li>
+                                        <li><a href="#">마케팅 제휴</a></li>                                       
+                                    </ul>                                            
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+</body>
+<script>
+    const page01 = new Swiper("main #page01 .swiper",{
+        loop : true,
+
+        autoplay:{
+            delay : 3000,
+            disableOnInteraction: false,
+        },
+        pagination: {    
+            el: "#page01 .swiper-pagination",
+            clickable: true,
+        },
+    });
+
+    const page02 = new Swiper("main #page02 .swiper",{
+        loop:false,
+
+        // 간격
+        spaceBetween: 10,
+
+        navigation:{ 
+            nextEl:".swiper-button-next",
+            prevEl:".swiper-button-prev",
+            },
+        
+        breakpoints: {
+            400:{
+                slidesPerView:2,
+            },
+            600:{
+                slidesPerView:2,
+            },
+            800:{
+                slidesPerView:4,
+            },
+            1000:{
+                slidesPerView:1,
+            },
+            // 1200:{
+            //     slidesPerView:2
+            // },                
+        },
+    })
+
+    $(function(){
+        $("header .wrap #menu").on("mouseenter",function(){
+            $("header").addClass("view");
+        });
+
+        $("header .wrap #menu").on("mouseleave", function(){
+            $("header").removeClass("view");
+        })
+
+        // mobile
+        $("header #mobile .button").on("click",function(){
+            $("header #mobile").toggleClass("view");
+        });
+        $("header #mobile .menuBox .list li span").on("click",function(){
+            $(this).parent().toggleClass("view");
+        })
+
+    });
+
+    $("main .scroll .menu li").on("click", function(){
+        
+        $("main .scroll .menu li").removeClass("view");
+
+        $(this).addClass("view");
+    });
+
+    // scroll
+    $("main .scroll li a").on("click", function(e){
+        e.preventDefault();
+
+        const hash = $($(this).attr("href"));
+        console.log(hash);
+
+        $("html, body").animate({
+                // offset(위치값) : 위치를 받아와서 (top) 탑부분으로 이동 시켜줌
+                scrollTop:hash.offset().top,
+            },500,"swing"); // 애니메이션 속도조절- 잘 안씀  500 = 0.5초
+    });
+    
+</script>
+</html>
