@@ -1061,7 +1061,6 @@
                 </div>
             </div>
         </section>
-<!-- ************************************************************************************ -->
         <section id="page02" class="section">
             <div class="wrap">
                 <ul class="grid">
@@ -1084,7 +1083,7 @@
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide">
                                     <div class="img">
-                                        <img src="/img/index_page02_img01.jpg" alt="">
+                                        <img src="img/index_page02_img01.jpg" alt="">
                                         <div class="title">
                                             <div class="name">꿀수박주스</div>
                                             <div class="sub">Sweet Watermelon Juice</div>
@@ -1096,7 +1095,7 @@
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="img">
-                                        <img src="/img/index_page02_img02.jpg" alt="">
+                                        <img src="img/index_page02_img02.jpg" alt="">
                                         <div class="title">
                                             <div class="name">꿀수박 화채스무디</div>
                                             <div class="sub">Watermelon Punch Smoothie</div>
@@ -1108,7 +1107,7 @@
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="img">
-                                        <img src="/img/index_page02_img03.jpg" alt="">
+                                        <img src="img/index_page02_img03.jpg" alt="">
                                         <div class="title">
                                             <div class="name">꿀복숭아 스무디</div>
                                             <div class="sub">Peach Smoothie</div>
@@ -1118,7 +1117,7 @@
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="img">
-                                        <img src="/img/index_page02_img04.jpg" alt="">
+                                        <img src="img/index_page02_img04.jpg" alt="">
                                         <div class="title">
                                             <div class="name">저당 POP POP 매실 아이스티</div>
                                             <div class="sub">Low Sugar Green Plum Iced Tea</div>
@@ -1130,7 +1129,7 @@
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="img">
-                                        <img src="/img/index_page02_img05.jpg" alt="">
+                                        <img src="img/index_page02_img05.jpg" alt="">
                                         <div class="title">
                                             <div class="name">콜드브루 아샷추 크러쉬</div>
                                             <div class="sub">Peach Cold Brew Crush</div>
@@ -1142,7 +1141,7 @@
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="img">
-                                        <img src="/img/index_page02_img06.jpg" alt="">
+                                        <img src="img/index_page02_img06.jpg" alt="">
                                         <div class="title">
                                             <div class="name">팥빙 젤라또 파르페</div>
                                             <div class="sub">Red Bean Bingsu Parfait</div>
@@ -1152,7 +1151,7 @@
                                 </div>
                                 <div class="swiper-slide">
                                     <div class="img">
-                                        <img src="/img/index_page02_img07.jpg" alt="">
+                                        <img src="img/index_page02_img07.jpg" alt="">
                                         <div class="title">
                                             <div class="name">망빙 파르페</div>
                                             <div class="sub">Mango Bingsu Parfait</div>
@@ -1439,10 +1438,7 @@
             },
             1000:{
                 slidesPerView:1,
-            },
-            // 1200:{
-            //     slidesPerView:2
-            // },                
+            },          
         },
     })
 
@@ -1477,12 +1473,11 @@
         e.preventDefault();
 
         const hash = $($(this).attr("href"));
-        console.log(hash);
 
         $("html, body").animate({
-                // offset(위치값) : 위치를 받아와서 (top) 탑부분으로 이동 시켜줌
+                // offset(위치값) : 위치를 받아와서 (top) 탑부분으로 이동
                 scrollTop:hash.offset().top,
-            },500,"swing"); // 애니메이션 속도조절- 잘 안씀  500 = 0.5초
+            },500,"swing"); 
     });
     
 </script>
